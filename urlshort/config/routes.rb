@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+
+  get 'url_shortener/new'
+
+  get 'url_shortener/info'
+
+  get '#new' => 'url_shortener#new'          #get HTML form to create new short url
+  get 'info/:id' => 'url_shortener#info'     #get HTML summary of a short URL
+  get ':id' => 'url_shortener#show'          #use a short url to redirect to original url
+  post 'create' => 'url_shortener#create'    #POST to create a new short url and redirect to info page after.
+
+  root 'url_shortener#new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

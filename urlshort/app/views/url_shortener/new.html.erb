@@ -1,0 +1,15 @@
+<div class="header">
+  <h1>Shorten a URL</h1>
+</div>
+
+<p> Use the form below to shorten a url.</p>
+
+<%= form_for @shortenRequest, url: {action: "create"}, :as => :shortenRequest do |f| %>
+
+  <%= f.url_field :original_url %>
+
+  <br>
+
+  <%= f.submit "Shorten!", class: "form-submit" %>
+
+<% end %>
