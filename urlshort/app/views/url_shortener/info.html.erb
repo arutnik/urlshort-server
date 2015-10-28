@@ -1,2 +1,18 @@
-<h1>UrlShortener#info</h1>
-<p>Find me in app/views/url_shortener/info.html.erb</p>
+<div class="header">
+
+  <% if @isNewlyCreated %>
+    <h1>New Short URL Created!</h1>
+  <% else %>
+    <h1>Short URL Information</h1>
+  <% end %>
+
+
+</div>
+
+<p> <%= "#{@absoluteShortUrl} maps to #{@shortUrl.original_url}" %> </p>
+
+</br>
+
+<div class="footer">
+  <%= link_to 'Shorten another URL', root_url %>
+</div>

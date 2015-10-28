@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'url_shortener/new'
-
-  get 'url_shortener/info'
-
-  get '#new' => 'url_shortener#new'          #get HTML form to create new short url
+  get 'new~' => 'url_shortener#new'          #get HTML form to create new short url
   get 'info/:id' => 'url_shortener#info'     #get HTML summary of a short URL
   get ':id' => 'url_shortener#show'          #use a short url to redirect to original url
-  post 'create' => 'url_shortener#create'    #POST to create a new short url and redirect to info page after.
+  post 'create~' => 'url_shortener#create'    #POST to create a new short url and redirect to info page after.
+  post 'api/create' => 'url_shortener#create_api'    #POST to create a new short url and return JSON representation of it
+  get 'api/info/:id' => 'url_shortener#info_api'    #GET to get JSON representation of existing short url
 
   root 'url_shortener#new'
 
