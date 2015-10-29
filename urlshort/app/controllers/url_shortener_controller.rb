@@ -64,6 +64,11 @@ class UrlShortenerController < ApplicationController
 
     @shortUrl = findshortUrlByUrlId(params[:id])
 
+    if @shortUrl.nil?
+      render "not_found", status: :not_found
+      return
+    end
+
     #detect redirect loop
     if @shortUrl.original_url.include? root_url
       puts "Redirect loop detected, returning to home"

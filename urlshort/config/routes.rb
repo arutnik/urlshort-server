@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   root 'url_shortener#new'
 
+  match "*path", to: "application#catch_404", via: :all
+
+  #get '*not_found', to: 'errors#error_404'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
