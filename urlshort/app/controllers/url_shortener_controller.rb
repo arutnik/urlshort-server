@@ -15,6 +15,12 @@ class UrlShortenerController < ApplicationController
       return
     end
 
+    if !checkUrlIsValid(params[:shortenRequest][:original_url])
+      response = { message: "The URL must be valid and have a scheme attached."}
+      render json: response, status: :bad_request
+      return
+    end
+
     shortenUrlCore(shortenParams)
 
     populateInfoPage()
@@ -54,6 +60,11 @@ class UrlShortenerController < ApplicationController
     end
 
     @shortUrl = findshortUrlByUrlId(params[:id])
+
+    if @shortUrl.nil?
+      render "not_found", status: :not_found
+      return
+    end
 
     populateInfoPage()
   end
