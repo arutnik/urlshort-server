@@ -9,6 +9,12 @@ class UrlShortenerController < ApplicationController
 
     shortenParams = createShortenRequestParams()
 
+    if shortenParams.nil?
+      response = { message: @error_message}
+      render json: response, status: :bad_request
+      return
+    end
+
     shortenUrlCore(shortenParams)
 
     populateInfoPage()
@@ -21,6 +27,12 @@ class UrlShortenerController < ApplicationController
   def create_api
 
     shortenParams = createShortenRequestParams()
+
+    if shortenParams.nil?
+      response = { message: @error_message}
+      render json: response, status: :bad_request
+      return
+    end
 
     if !checkUrlIsValid(params[:shortenRequest][:original_url])
       response = { message: "The URL must be valid and have a scheme attached."}
@@ -112,7 +124,12 @@ class UrlShortenerController < ApplicationController
     end
 
     def createShortenRequestParams
-      params.require(:shortenRequest).permit(:original_url)
+      begin
+        params.require(:shortenRequest).permit(:original_url)
+      rescue ActionController::ParameterMissing
+        @error_message = "Request format was not valid"
+        return nil
+      end
     end
 
     def findshortUrlByUrlId(urlId)
